@@ -12,7 +12,7 @@ const Navbar = () => {
   return (
     <div className="flex items-center justify-between mx-3 h-16">
       {/* left side - hamburger menu and logo */}
-      <div className="flex items-center gap-10">
+      <div className="flex items-center mr-20 gap-10">
         <div className="flex items-center gap-2">
           <div className="p-3 hover:bg-gray-200 rounded-lg cursor-pointer">
             <GiHamburgerMenu size={20} />
@@ -51,7 +51,7 @@ const Navbar = () => {
           <div className="p-1 hover:bg-blue-50 rounded-full cursor-pointer bg-white">
           <Avatar 
           src={assets.userProfile}
-          size="40" 
+          size="30px" 
           round={true} />
         </div>
         
