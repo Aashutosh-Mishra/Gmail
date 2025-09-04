@@ -7,6 +7,8 @@ import { GiArrowWings } from "react-icons/gi";
 import { MdOutlineRestorePage } from "react-icons/md";
 import { MdExpandMore } from "react-icons/md";
 import { assets } from "../assets/assets";
+import { useDispatch } from "react-redux";
+import { setOpen } from "../redux/appSlice";
 
 const sidebarItems = [
   {
@@ -36,11 +38,12 @@ const sidebarItems = [
 ];
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   return (
     <div className="w-[18%] border-r">
       {/* // compose button // */}
       <div className="p-5">
-        <button className="flex items-center gap-2 bg-[#c2e7ff] text-[#0b1278] font-semibold px-5 py-3 rounded-2xl shadow-md hover:shadow-lg hover:bg-[#d2e9ff]">
+        <button onClick={()=>dispatch(setOpen(true))} className="flex items-center gap-2 bg-[#c2e7ff] text-[#0b1278] font-semibold px-5 py-3 rounded-2xl shadow-md hover:shadow-lg hover:bg-[#d2e9ff]">
           <LuPencil size="24px" />
           Compose
         </button>
