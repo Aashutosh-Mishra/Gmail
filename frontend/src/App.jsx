@@ -6,6 +6,8 @@ import Body from "./components/Body";
 import Mail from "./components/Mail";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import SendEmail from "./components/SendEmail";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 
 const appRouter = createBrowserRouter([
   {
@@ -22,6 +24,14 @@ const appRouter = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/login",
+    element: <Login />
+  },
+  {
+    path: "/signup",
+    element: <Signup />
+  }
 ]);
 
 const App = () => {
