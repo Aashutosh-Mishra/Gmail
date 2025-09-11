@@ -37,7 +37,7 @@ app.use(cors(corsOptions));
 
 app.use("/api/v1/user", userRoute);
 
-"http://localhost:8080/api/v1/user/registrer"
+"http://localhost:8080/api/v1/user/register"
 "http://localhost:8080/api/v1/user/login"
 
 

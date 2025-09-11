@@ -7,8 +7,8 @@ dotenv.config({});
 
 export const register= async(req, res)=>{
     try{
-        const{fullname, email, password, profilePhoto} = req.body;
-        if(!fullname || !email || !password || !profilePhoto){
+        const{fullname, email, password} = req.body;
+        if(!fullname || !email || !password){
             return res.status(400).json({
                 message: "All fields are required",
                 success: false
@@ -22,15 +22,13 @@ export const register= async(req, res)=>{
                 success: false
             })
         }
-
-        const finalProfilePhoto = profilePhoto || `https://avatar.iran.liara.run/public/boy`;;
-
         const hashedPassword = await bcrypt.hash(password, 10);
+         const profilePhoto=`https://avatar.iran.liara.run/public/boy`;
         await User.create({
             fullname,
             email,
             password:hashedPassword,
-            profilePhoto:finalProfilePhoto
+            profilePhoto:profilePhoto
         });
 
         return res.status(201).json({
@@ -54,7 +52,7 @@ export const login = async(req, res)=>{
             })
         }
         //check if user not exists
-        const user = await User.find({email});
+        const user = await User.findOne({email});
         if(!user){
             return res.status(400).json({
                 message: "Incorrect email or password",
@@ -74,7 +72,7 @@ export const login = async(req, res)=>{
             userId: user._id,
 
         }
-        const token = await jwt.sign(tokenData.process.env.SECRET_KEY,{expiresIn:'1d'});
+        const token =  jwt.sign(tokenData,process.env.SECRET_KEY,{expiresIn:'1d'});
 
         return res.status(200).cookie("token", token,{maxAge: 1*24*60*60*1000, httpOnly:true, sameSite: 'strict'}).json({
             
@@ -85,6 +83,28 @@ export const login = async(req, res)=>{
         })
     }catch(error){
         console.log(error);
+         res.status(500).json({
+         message: "Server error",
+         success: false,
+    });
 
+    }
+}
+
+export const logout = async(req, res)=>{
+    try {
+        res.clearCookie("token");
+        return res.status(200).cookie("token", "", {maxAge:0}).json({
+            message: "Logged out successfully.",
+            success: true,
+        });
+        
+    } catch (error) {
+        console.log(error);
+         res.status(500).json({
+         message: "Server error",
+         success: false,
+    });
+        
     }
 }
